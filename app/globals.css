@@ -1,0 +1,125 @@
+@import "tailwindcss";
+
+@theme {
+  --color-navy: #0f172a;
+  --color-navy-800: #1b2740;
+  --color-navy-700: #2a3856;
+  --color-ink: #1e293b;
+  --color-muted: #64748b;
+  --color-stone: #f8fafc;
+  --color-line: #e2e8f0;
+  --color-brass: #8a6d3b;
+  --color-brass-light: #d9b56a;
+  --color-forest: #1f6f43;
+  --color-amber-deep: #b45309;
+  --color-crimson: #9f1239;
+}
+
+@theme inline {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-source-serif), Georgia, "Times New Roman", serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-stone);
+  color: var(--color-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-navy);
+  outline-offset: 2px;
+}
+
+.on-dark :focus-visible {
+  outline-color: #ffffff;
+}
+
+@layer components {
+  .field {
+    @apply w-full rounded-md border border-line bg-white px-2.5 py-1.5 text-sm text-ink placeholder:text-slate-400;
+  }
+  .label {
+    @apply mb-1 block text-xs font-medium text-muted;
+  }
+  .btn {
+    @apply inline-flex cursor-pointer items-center justify-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium whitespace-nowrap transition-colors disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .btn-primary {
+    @apply bg-navy text-white hover:bg-navy-800;
+  }
+  .btn-quiet {
+    @apply border border-line bg-white text-ink hover:bg-stone;
+  }
+  .btn-danger {
+    @apply bg-crimson text-white hover:bg-rose-900;
+  }
+  .th {
+    @apply px-3 py-2 text-left text-[11px] font-semibold tracking-wide text-muted uppercase;
+  }
+  .td {
+    @apply px-3 py-2 align-top text-sm;
+  }
+}
+
+/* Phones: 16px form text stops iOS zooming into focused fields, and controls
+   get comfortable touch targets. */
+@media (max-width: 639px) {
+  .field {
+    font-size: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+  .btn {
+    min-height: 2.5rem;
+  }
+}
+
+/* Data tables become stacked label/value cards below the md breakpoint. */
+@media (max-width: 767px) {
+  .rtable thead {
+    display: none;
+  }
+  .rtable,
+  .rtable tbody,
+  .rtable tr {
+    display: block;
+    width: 100%;
+  }
+  .rtable tr {
+    padding: 0.5rem 0;
+  }
+  .rtable td {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.3rem 0.875rem;
+    text-align: right;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+  .rtable td[data-label]::before {
+    content: attr(data-label);
+    flex-shrink: 0;
+    padding-top: 0.125rem;
+    color: var(--color-muted);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-align: left;
+    text-transform: uppercase;
+  }
+  .rtable td[colspan] {
+    display: block;
+    text-align: left;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
